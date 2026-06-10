@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+
+            <div id="header1">
+
+                <div id="logo">
+                    <img src="assets/logo3.png">
+                </div>
+            </div>
+
+            <div id="header2">
+
+              <p id="userInfo" style="color:white;"></p>
+
+
+                <!-- <div id="btn1">  -->
+                <!-- <p>English</p>  -->
+                <select id="language">
+                    <!-- <option value="apple">language</option> -->
+                    <option value="grapes">English</option>
+                    <option value="lichi">hindi</option>
+                    <option value="mango">tamil</option>
+
+                </select>
+                <!-- </div> -->
+
+                <div id="btn2">
+                    <p>Sign in</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="page1">
+            <h1>Unlimited movies, TV</h1>
+            <h1> shows and more</h1>
+            <p>Starts at ₹149. Cancel at any time.</p>
+            <br>
+            <p>Ready to watch? Enter your email to create or restart your</p>
+            <p> membership.</p>
+
+            <div id="email-signup-container">
+                <div class="input-wrapper">
+                    <label for="username" style="display: none;">Email address</label>
+                    <input type="text" id="username" name="username" placeholder="Email address" autocomplete="username" required>
+                </div>
+                <div id="btn3">
+                    Get Started
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div id="page2">
+
+            <div id="box1">
+                <P>Trending Now</P>
+            </div>
+
+            <div class="movie-container">
+                <div class="movie" id="movie1"></div>
+                <div class="movie" id="movie2"></div>
+                <div class="movie" id="movie3"></div>
+                <div class="movie" id="movie4"></div>
+                <div class="movie" id="movie5"></div>
+                <div class="movie" id="movie6"></div>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="page3">
+            <p>More reasons to join</p>
+
+            <div class="reason">
+
+                <div id="reason1">
+                    <h2>Enjoy on your TV</h2>
+                    <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV,</p>
+                    <p>  Blu-ray players and more.</p>
+                </div>
+                <div id="reason2">
+                    <h2>Download your shows to watch offline</h2>
+                    <p>Save your favourites easily and always have something to </p>
+                       <p> watch.</p>
+                </div>
+                <div id="reason3">
+                    <h2>Watch everywhere</h2>
+                    <p>Stream unlimited movies and TV shows on your phone, tablet,</p>
+                    <p>laptop and TV.</p>
+                </div>
+                <div id="reason4">
+                    <h2>Create profiles for kids</h2>
+                    <p>Send kids on adventures with their favourite characters in a </p>
+                       <p>space made just for them — free with your membership.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="page4">
+            <p>Frequently Asked Questions</p>
+
+            <div class="questionare">
+
+             <div class="question"  id="question1">
+                <h2>What is Netflix?</h2>
+             </div>
+              <div  class="question"  id="question2">
+                <h2>How much does Netflix cost?</h2>
+              </div>
+               <div class="question"   id="question3">
+                <h2>Where can i Watch?</h2>
+               </div>
+                <div class="question"   id="question4">
+                    <h2>What can i Watch on Netflix?</h2>
+                </div>
+             
+                 </div>
+
+        </div>
+       
+        <!-- <script>
+document.getElementById("btn2").addEventListener("click", function () {
+    window.location.href = "login.html";
+});
+</script> -->
+
+<!-- <script>
+const token = localStorage.getItem("token");
+const btn = document.getElementById("btn2");
+
+if(token){
+    // User logged in
+    btn.innerHTML = "<p>Logout</p>";
+
+    btn.addEventListener("click", function () {
+        localStorage.removeItem("token");
+        alert("Logged out");
+        window.location.reload();
+    });
+
+} else {
+    // User not logged in
+    btn.addEventListener("click", function () {
+        window.location.href = "login.html";
+    });
+}
+</script> -->
+
+
+
+
+<!-- <script>
+const token = localStorage.getItem("token");
+const btn = document.getElementById("btn2");
+
+if(token){
+
+    // Show logged in text
+    document.getElementById("userInfo").innerText = "Logged in";
+
+    // Change button to logout
+    btn.innerHTML = "<p>Logout</p>";
+
+    btn.addEventListener("click", function () {
+        localStorage.removeItem("token");
+        alert("Logged out");
+        window.location.reload();
+    });
+
+} else {
+
+    btn.addEventListener("click", function () {
+        window.location.href = "login.html";
+    });
+
+}
+</script> -->
+
+
+<script>
+// Check login state
+const token = localStorage.getItem("token");
+const btn = document.getElementById("btn2");
+const userInfo = document.getElementById("userInfo");
+const getStartedBtn = document.getElementById("btn3");
+const usernameInput = document.getElementById("username");
+const inputDiv = usernameInput ? usernameInput.parentElement : null;
+const introSubText = document.querySelectorAll("#page1 p")[1];
+const introSubText2 = document.querySelectorAll("#page1 p")[2];
+
+if (token) {
+    // Logged in behavior
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        userInfo.innerText = `Logged in as: ${payload.name || payload.email}`;
+    } catch (e) {
+        userInfo.innerText = "Logged in";
+    }
+
+    // Toggle button to Logout
+    btn.innerHTML = "<p>Logout</p>";
+    btn.onclick = function () {
+        localStorage.removeItem("token");
+        alert("Logged out successfully");
+        window.location.reload();
+    };
+
+    // Customize page layout for returning logged-in users
+    if (introSubText) introSubText.innerText = "Welcome back! Ready to watch your favorite movies?";
+    if (introSubText2) introSubText2.style.display = "none";
+    if (inputDiv) inputDiv.style.display = "none";
+    if (getStartedBtn) {
+        getStartedBtn.innerText = "Browse Movies";
+        getStartedBtn.style.textAlign = "center";
+        getStartedBtn.style.cursor = "pointer";
+        getStartedBtn.onclick = () => {
+            document.getElementById("page2").scrollIntoView({ behavior: 'smooth' });
+        };
+    }
+} else {
+    // Logged out behavior
+    userInfo.innerText = "";
+    btn.innerHTML = "<p>Sign In</p>";
+    btn.onclick = function () {
+        window.location.href = "login.html";
+    };
+
+    if (getStartedBtn) {
+        getStartedBtn.innerText = "Get Started";
+        getStartedBtn.style.cursor = "pointer";
+        getStartedBtn.onclick = () => {
+            const emailValue = usernameInput ? usernameInput.value : "";
+            if (emailValue) {
+                window.location.href = `signup.html?email=${encodeURIComponent(emailValue)}`;
+            } else {
+                alert("Please enter your email first!");
+            }
+        };
+    }
+}
+</script>
+
+
+</body>
+
+</html>
