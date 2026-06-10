@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 function verifyToken(req, res, next) {
 
-  const token = req.headers["authorization"];
+  let token = req.headers["authorization"];
 
   if (!token) {
     return res.status(403).json({
@@ -10,9 +10,14 @@ function verifyToken(req, res, next) {
     });
   }
 
+  // Handle Bearer <token> formatting if present
+  if (token.startsWith("Bearer ")) {
+    token = token.substring(7, token.length).trim();
+  }
+
   try {
 
-    const decoded = jwt.verify(token, "mySecretKey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "mySecretKey");
 
     req.userId = decoded.userId;
 

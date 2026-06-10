@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
 
   try {
 
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     // check user already exists
     let user = await User.findOne({ email });
@@ -50,6 +50,7 @@ router.post("/register", async (req, res) => {
 
     // create user
     user = new User({
+      name,
       email,
       password: hashedPassword
     });
@@ -95,8 +96,8 @@ router.post("/login", async (req, res) => {
 
     // create JWT token
     const token = jwt.sign(
-      { userId: user._id , email: user.email},
-      "mySecretKey",
+      { userId: user._id, email: user.email, name: user.name },
+      process.env.JWT_SECRET || "mySecretKey",
       { expiresIn: "1h" }
     );
 
