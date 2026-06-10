@@ -19,14 +19,11 @@ Backend: Node.js, Express.js, MongoDB, JWT Authentication
 
 ## Screenshots
 
-### Home Page
-(Add screenshot here)
+<img width="1263" height="616" alt="image" src="https://github.com/user-attachments/assets/04607346-07d4-4245-82e3-6692176f3221" />
+<img width="1259" height="620" alt="image" src="https://github.com/user-attachments/assets/508e3e1d-70ba-41d4-9ffc-9ac50dfdf8ca" />
+<img width="1246" height="595" alt="image" src="https://github.com/user-attachments/assets/d4ed05be-9955-454f-9205-1ba687bf4df5" />
 
-### Login Page
-(Add screenshot here)
 
-### Signup Page
-(Add screenshot here)
 
 ## Project Structure
 
@@ -36,7 +33,7 @@ Netflix Clone
 
 ## Live Demo
 
-Coming Soon
+https://netflix-plum-psi-26.vercel.app/
 
 ## Author
 
