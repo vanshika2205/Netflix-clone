@@ -1,53 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Sign Up</title>
     <style>
-        body { background-color: black; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial; }
-        .box { background: rgba(0,0,0,0.8); padding: 30px; border-radius: 8px; width: 300px; }
-        input { width: 100%; padding: 10px; margin: 10px 0; }
-        button { width: 100%; padding: 10px; background: #e50914; color: white; border: none; cursor: pointer; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/img.png);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 90px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            cursor: pointer;
+        }
+
+        .signup-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+
+        .signup-box {
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 4px;
+            width: 100%;
+            max-width: 450px;
+            min-height: 550px;
+            padding: 60px 68px 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 740px) {
+            body {
+                background-color: black;
+                background-image: none;
+            }
+            .header {
+                padding: 0 20px;
+                height: 70px;
+            }
+            .logo img {
+                height: 35px;
+            }
+            .signup-box {
+                padding: 20px 20px 40px;
+                min-height: auto;
+                background-color: black;
+            }
+        }
+
+        .signup-box h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: #333;
+            border: none;
+            border-radius: 4px;
+            height: 50px;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            color: white;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .input-group input:focus {
+            background-color: #454545;
+            outline: none;
+        }
+
+        .signup-box button {
+            width: 100%;
+            padding: 16px;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: background-color 0.2s ease;
+        }
+
+        .signup-box button:hover {
+            background-color: #c80610;
+        }
+
+        .signup-box button:active {
+            transform: scale(0.98);
+        }
+
+        .login-now {
+            margin-top: 50px;
+            color: #737373;
+            font-size: 1rem;
+        }
+
+        .login-now a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-now a:hover {
+            text-decoration: underline;
+        }
+
+        .terms-text {
+            margin-top: 15px;
+            color: #8c8c8c;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .terms-text a {
+            color: #0071eb;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Alert styling */
+        .alert-message {
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .alert-error {
+            background-color: #e87c03;
+            color: white;
+        }
+
+        .alert-success {
+            background-color: #2b8c3d;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>Sign Up</h2>
-        <input type="text" id="name" placeholder="Full Name">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="register()">Register</button>
-        <p>Already have an account? <a href="login.html" style="color:white">Login</a></p>
-    </div>
 
-    <script>
-        // Auto-fill email from query parameter if present
-        window.addEventListener("DOMContentLoaded", () => {
-            const params = new URLSearchParams(window.location.search);
-            const emailParam = params.get("email");
-            if (emailParam) {
-                document.getElementById("email").value = emailParam;
-            }
+<div class="header">
+    <div class="logo" onclick="window.location.href='index.html'">
+        <img src="assets/logo3.png" alt="Netflix">
+    </div>
+</div>
+
+<div class="signup-container">
+    <div class="signup-box">
+        <h1>Sign Up</h1>
+        
+        <div id="alertBox" class="alert-message"></div>
+
+        <div class="input-group">
+            <input type="text" id="name" placeholder="Full Name" required autocomplete="name">
+        </div>
+
+        <div class="input-group">
+            <input type="email" id="email" placeholder="Email" required autocomplete="email">
+        </div>
+
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Password" required autocomplete="new-password">
+        </div>
+
+        <button onclick="register()">Register</button>
+
+        <div class="login-now">
+            Already have an account? <a href="login.html">Sign in now</a>.
+        </div>
+
+        <div class="terms-text">
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn more.</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Check if user is already logged in, redirect to index
+if (localStorage.getItem("token")) {
+    window.location.href = "index.html";
+}
+
+// Auto-fill email from query parameter if present
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const emailParam = params.get("email");
+    if (emailParam) {
+        document.getElementById("email").value = emailParam;
+    }
+});
+
+async function register() {
+    const alertBox = document.getElementById("alertBox");
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    alertBox.style.display = "none";
+    alertBox.className = "alert-message"; // Reset classes
+
+    if (!name || !email || !password) {
+        alertBox.innerText = "Please fill in all details.";
+        alertBox.classList.add("alert-error");
+        alertBox.style.display = "block";
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:4000/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
         });
 
-        async function register() {
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+        const data = await res.json();
 
-            const res = await fetch("http://localhost:4000/api/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password })
-            });
-
-            const data = await res.json();
-            if(res.status === 201 || res.status === 200) {
-                alert("Account created! Now login.");
+        if (res.status === 201 || res.status === 200) {
+            alertBox.innerText = "Account created successfully! Redirecting to Sign In...";
+            alertBox.classList.add("alert-success");
+            alertBox.style.display = "block";
+            
+            setTimeout(() => {
                 window.location.href = "login.html";
-            } else {
-                alert(data.message || "Registration failed");
-            }
+            }, 2000);
+        } else {
+            alertBox.innerText = data.message || "Registration failed. Try again.";
+            alertBox.classList.add("alert-error");
+            alertBox.style.display = "block";
         }
-    </script>
+    } catch (error) {
+        console.error("Registration failed", error);
+        alertBox.innerText = "Connection to server failed. Please try again later.";
+        alertBox.classList.add("alert-error");
+        alertBox.style.display = "block";
+    }
+}
+</script>
 </body>
 </html>

@@ -68,20 +68,31 @@
         <div id="page2">
 
             <div id="box1">
-                <P>Trending Now</P>
+                <p>Trending Now</p>
             </div>
 
-            <div class="movie-container">
+            <div class="filter-search-container">
+                <div class="genre-filters" id="genreFilters">
+                    <button class="genre-btn active" onclick="filterGenre('All')">All</button>
+                    <button class="genre-btn" onclick="filterGenre('Action')">Action</button>
+                    <button class="genre-btn" onclick="filterGenre('Sci-Fi')">Sci-Fi</button>
+                    <button class="genre-btn" onclick="filterGenre('Mystery')">Mystery</button>
+                    <button class="genre-btn" onclick="filterGenre('Thriller')">Thriller</button>
+                    <button class="genre-btn" id="myListFilterBtn" onclick="filterGenre('MyList')" style="display:none;">My List</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="movieSearchInput" placeholder="Search movies..." onkeyup="searchMovies(event)">
+                </div>
+            </div>
+
+            <div class="movie-container" id="movieContainer">
                 <div class="movie" id="movie1"></div>
                 <div class="movie" id="movie2"></div>
                 <div class="movie" id="movie3"></div>
                 <div class="movie" id="movie4"></div>
                 <div class="movie" id="movie5"></div>
                 <div class="movie" id="movie6"></div>
-
             </div>
-
-
 
         </div>
 
@@ -120,83 +131,98 @@
 
             <div class="questionare">
 
-             <div class="question"  id="question1">
-                <h2>What is Netflix?</h2>
-             </div>
-              <div  class="question"  id="question2">
-                <h2>How much does Netflix cost?</h2>
-              </div>
-               <div class="question"   id="question3">
-                <h2>Where can i Watch?</h2>
-               </div>
-                <div class="question"   id="question4">
-                    <h2>What can i Watch on Netflix?</h2>
+             <div class="question" id="question1">
+                <div class="faq-header">
+                    <h2>What is Netflix?</h2>
+                    <span class="faq-icon">+</span>
                 </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries and more on thousands of internet-connected devices. You can watch as much as you want, whenever you want, without a single ad – all for one low monthly price.
+                    </div>
+                </div>
+             </div>
+
+             <div class="question" id="question2">
+                <div class="faq-header">
+                    <h2>How much does Netflix cost?</h2>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from ₹149 to ₹649 a month. No extra costs, no contracts.
+                    </div>
+                </div>
+             </div>
+
+             <div class="question" id="question3">
+                <div class="faq-header">
+                    <h2>Where can I watch?</h2>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles.
+                    </div>
+                </div>
+             </div>
+
+             <div class="question" id="question4">
+                <div class="faq-header">
+                    <h2>What can I watch on Netflix?</h2>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.
+                    </div>
+                </div>
+             </div>
              
-                 </div>
+            </div>
 
         </div>
+
+    <!-- Premium Movie Modal -->
+    <div class="modal-overlay" id="movieModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-video-container">
+                <video id="modalVideo" controls poster="" src=""></video>
+            </div>
+            <div class="modal-body">
+                <div class="modal-left">
+                    <div class="modal-title-row">
+                        <h2 id="modalMovieTitle">Movie Title</h2>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span class="meta-year" id="modalMovieYear">2024</span>
+                        <span class="meta-rating" id="modalMovieRating">U/A 13+</span>
+                        <span class="meta-category" id="modalMovieCategory">Sci-Fi</span>
+                    </div>
+                    <p class="modal-desc" id="modalMovieDesc">Movie description goes here...</p>
+                    <div class="modal-actions">
+                        <button class="modal-btn modal-btn-play" onclick="playVideo()">
+                            <span style="font-size:1rem;">▶</span> Play
+                        </button>
+                        <button class="modal-btn modal-btn-list" id="modalWatchlistBtn" onclick="toggleWatchlist()">
+                            <span>+</span> Add to My List
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <p>Cast: <span id="modalMovieCast">Chris Hemsworth, David Harbour, Winona Ryder</span></p>
+                    <p>Director: <span id="modalMovieDirector">Shawn Levy, Russo Brothers</span></p>
+                    <p>Genre: <span id="modalMovieGenre">Action, Sci-Fi, Adventure</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
        
-        <!-- <script>
-document.getElementById("btn2").addEventListener("click", function () {
-    window.location.href = "login.html";
-});
-</script> -->
-
-<!-- <script>
-const token = localStorage.getItem("token");
-const btn = document.getElementById("btn2");
-
-if(token){
-    // User logged in
-    btn.innerHTML = "<p>Logout</p>";
-
-    btn.addEventListener("click", function () {
-        localStorage.removeItem("token");
-        alert("Logged out");
-        window.location.reload();
-    });
-
-} else {
-    // User not logged in
-    btn.addEventListener("click", function () {
-        window.location.href = "login.html";
-    });
-}
-</script> -->
-
-
-
-
-<!-- <script>
-const token = localStorage.getItem("token");
-const btn = document.getElementById("btn2");
-
-if(token){
-
-    // Show logged in text
-    document.getElementById("userInfo").innerText = "Logged in";
-
-    // Change button to logout
-    btn.innerHTML = "<p>Logout</p>";
-
-    btn.addEventListener("click", function () {
-        localStorage.removeItem("token");
-        alert("Logged out");
-        window.location.reload();
-    });
-
-} else {
-
-    btn.addEventListener("click", function () {
-        window.location.href = "login.html";
-    });
-
-}
-</script> -->
-
-
 <script>
+// Backend Server Base URL
+const API_URL = "http://localhost:4000";
+
 // Check login state
 const token = localStorage.getItem("token");
 const btn = document.getElementById("btn2");
@@ -206,6 +232,11 @@ const usernameInput = document.getElementById("username");
 const inputDiv = usernameInput ? usernameInput.parentElement : null;
 const introSubText = document.querySelectorAll("#page1 p")[1];
 const introSubText2 = document.querySelectorAll("#page1 p")[2];
+const myListFilterBtn = document.getElementById("myListFilterBtn");
+
+let allMovies = [];
+let localWatchlist = JSON.parse(localStorage.getItem("localWatchlist") || "[]");
+let currentSelectedMovie = null;
 
 if (token) {
     // Logged in behavior
@@ -236,6 +267,9 @@ if (token) {
             document.getElementById("page2").scrollIntoView({ behavior: 'smooth' });
         };
     }
+    
+    // Show watch list filter tab if user is logged in
+    if (myListFilterBtn) myListFilterBtn.style.display = "block";
 } else {
     // Logged out behavior
     userInfo.innerText = "";
@@ -257,6 +291,353 @@ if (token) {
         };
     }
 }
+
+// --- FAQ ACCORDION CODE ---
+document.querySelectorAll(".faq-header").forEach(header => {
+    header.addEventListener("click", () => {
+        const questionElement = header.parentElement;
+        const isOpen = questionElement.classList.contains("open");
+        
+        // Close all other questions
+        document.querySelectorAll(".question").forEach(q => {
+            q.classList.remove("open");
+        });
+        
+        // Toggle current
+        if (!isOpen) {
+            questionElement.classList.add("open");
+        }
+    });
+});
+
+// --- MOVIES INTEGRATION CODE ---
+// Fallback movies database (if server/db is offline)
+const fallbackMovies = [
+  {
+    _id: "local_1",
+    title: "Stranger Things",
+    description: "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
+    category: "Sci-Fi",
+    posterUrl: "assets/img2.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    year: 2022,
+    rating: "U/A 16+",
+    cast: "Winona Ryder, David Harbour, Millie Bobby Brown",
+    director: "The Duffer Brothers",
+    genre: "Sci-Fi, Drama, Mystery"
+  },
+  {
+    _id: "local_2",
+    title: "Wednesday",
+    description: "Smart, sarcastic and a little dead inside, Wednesday Addams investigates a mystery involving a supernatural spree while making new friends — and foes.",
+    category: "Mystery",
+    posterUrl: "assets/img3.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    year: 2022,
+    rating: "U/A 13+",
+    cast: "Jenna Ortega, Gwendoline Christie, Riki Lindhome",
+    director: "Tim Burton",
+    genre: "Mystery, Comedy, Fantasy"
+  },
+  {
+    _id: "local_3",
+    title: "Squid Game",
+    description: "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits with deadly high stakes.",
+    category: "Thriller",
+    posterUrl: "assets/img4.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    year: 2021,
+    rating: "A",
+    cast: "Lee Jung-jae, Park Hae-soo, Wi Ha-jun",
+    director: "Hwang Dong-hyuk",
+    genre: "Thriller, Drama, Action"
+  },
+  {
+    _id: "local_4",
+    title: "Red Notice",
+    description: "An FBI profiler pursuing the world's most wanted art thief becomes his reluctant partner in crime to catch an elusive crook who's always one step ahead.",
+    category: "Action",
+    posterUrl: "assets/img5.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    year: 2021,
+    rating: "U/A 13+",
+    cast: "Dwayne Johnson, Ryan Reynolds, Gal Gadot",
+    director: "Rawson Marshall Thurber",
+    genre: "Action, Comedy, Crime"
+  },
+  {
+    _id: "local_5",
+    title: "Extraction",
+    description: "A hardened mercenary's mission becomes a soul-searching race to survive when he's sent into Bangladesh to rescue a drug lord's kidnapped son.",
+    category: "Action",
+    posterUrl: "assets/img6.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    year: 2020,
+    rating: "A",
+    cast: "Chris Hemsworth, Rudhraksh Jaiswal, Randeep Hooda",
+    director: "Sam Hargrave",
+    genre: "Action, Thriller"
+  },
+  {
+    _id: "local_6",
+    title: "Avatar: The Last Airbender",
+    description: "A young boy known as the Avatar must master the four elemental powers to save a world at war — and fight a ruthless enemy bent on stopping him.",
+    category: "Sci-Fi",
+    posterUrl: "assets/img7.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    year: 2024,
+    rating: "U/A 13+",
+    cast: "Gordon Cormier, Kiawentiio, Ian Ousley",
+    director: "Albert Kim",
+    genre: "Sci-Fi, Adventure, Fantasy"
+  }
+];
+
+// Load movies from backend, fallback to local array on failure
+async function loadMovies() {
+    try {
+        const response = await fetch(`${API_URL}/api/movies`);
+        if (!response.ok) throw new Error("Backend query failed");
+        
+        allMovies = await response.json();
+        
+        // If DB is empty, try to seed
+        if (allMovies.length === 0) {
+            await fetch(`${API_URL}/api/movies/seed`, { method: "POST" });
+            const retryRes = await fetch(`${API_URL}/api/movies`);
+            allMovies = await retryRes.json();
+        }
+        console.log("Loaded movies from Backend");
+    } catch (err) {
+        console.log("Could not load from backend. Using static fallback movies.", err);
+        allMovies = fallbackMovies;
+    }
+    renderMovies(allMovies);
+}
+
+// Render movies into container
+function renderMovies(moviesList) {
+    const container = document.getElementById("movieContainer");
+    if (!container) return;
+    
+    if (moviesList.length === 0) {
+        container.innerHTML = `<div style="color: #aaa; width:100%; text-align:center; padding: 40px; font-size:1.2rem;">No movies found matching criteria.</div>`;
+        return;
+    }
+
+    container.innerHTML = moviesList.map(movie => `
+        <div class="movie" style="background-image: url(${movie.posterUrl}); background-size: cover;" onclick="openModal('${movie._id || movie.id}')">
+            <div class="movie-info-overlay">
+                <h4>${movie.title}</h4>
+                <div class="meta">
+                    <span style="color: #46d369;">${movie.year}</span>
+                    <span>${movie.rating}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Search movies
+function searchMovies(event) {
+    const query = document.getElementById("movieSearchInput").value.toLowerCase();
+    
+    // Clear active genre highlights
+    document.querySelectorAll(".genre-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelector(".genre-btn[onclick*='All']").classList.add("active");
+
+    const filtered = allMovies.filter(movie => 
+        movie.title.toLowerCase().includes(query) || 
+        movie.description.toLowerCase().includes(query)
+    );
+    renderMovies(filtered);
+}
+
+// Filter by genre
+async function filterGenre(genre) {
+    // Clear search bar
+    document.getElementById("movieSearchInput").value = "";
+    
+    // Highlight button
+    document.querySelectorAll(".genre-btn").forEach(btn => btn.classList.remove("active"));
+    event.currentTarget.classList.add("active");
+
+    if (genre === "All") {
+        renderMovies(allMovies);
+    } else if (genre === "MyList") {
+        await loadWatchlist();
+    } else {
+        const filtered = allMovies.filter(movie => movie.category.toLowerCase() === genre.toLowerCase());
+        renderMovies(filtered);
+    }
+}
+
+// Load watchlist items
+async function loadWatchlist() {
+    if (!token) {
+        renderMovies([]);
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/api/auth/watchlist`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if (!response.ok) throw new Error("Failed to fetch backend watchlist");
+        
+        const watchlistMovies = await response.json();
+        renderMovies(watchlistMovies);
+    } catch (err) {
+        console.log("Using local storage watchlist fallback.");
+        const filtered = allMovies.filter(m => localWatchlist.includes(m._id || m.id));
+        renderMovies(filtered);
+    }
+}
+
+// --- DETAILS MODAL & PLAYER CODE ---
+function openModal(movieId) {
+    const movie = allMovies.find(m => (m._id || m.id) === movieId);
+    if (!movie) return;
+    
+    currentSelectedMovie = movie;
+    
+    document.getElementById("modalMovieTitle").innerText = movie.title;
+    document.getElementById("modalMovieYear").innerText = movie.year;
+    document.getElementById("modalMovieRating").innerText = movie.rating;
+    document.getElementById("modalMovieCategory").innerText = movie.category;
+    document.getElementById("modalMovieDesc").innerText = movie.description;
+    
+    // Set video details
+    const videoElement = document.getElementById("modalVideo");
+    videoElement.src = movie.videoUrl;
+    videoElement.poster = movie.posterUrl;
+    videoElement.load();
+    
+    // Populate Cast and Director if available
+    document.getElementById("modalMovieCast").innerText = movie.cast || "Winona Ryder, David Harbour, Millie Bobby Brown";
+    document.getElementById("modalMovieDirector").innerText = movie.director || "Russo Brothers, Tim Burton";
+    document.getElementById("modalMovieGenre").innerText = movie.genre || `${movie.category}, Action, Sci-Fi`;
+    
+    // Check if item is in watchlist to update button state
+    updateWatchlistButtonState(movieId);
+    
+    // Open overlay
+    document.getElementById("movieModal").classList.add("open");
+}
+
+function closeModal() {
+    const modal = document.getElementById("movieModal");
+    modal.classList.remove("open");
+    
+    // Pause video on close
+    const video = document.getElementById("modalVideo");
+    video.pause();
+    video.src = "";
+}
+
+function playVideo() {
+    const video = document.getElementById("modalVideo");
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+}
+
+async function updateWatchlistButtonState(movieId) {
+    const btn = document.getElementById("modalWatchlistBtn");
+    let inList = false;
+    
+    if (token) {
+        try {
+            const response = await fetch(`${API_URL}/api/auth/watchlist`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const watchlist = await response.json();
+                inList = watchlist.some(m => (m._id || m.id) === movieId);
+            } else {
+                inList = localWatchlist.includes(movieId);
+            }
+        } catch (e) {
+            inList = localWatchlist.includes(movieId);
+        }
+    } else {
+        inList = localWatchlist.includes(movieId);
+    }
+    
+    if (inList) {
+        btn.innerHTML = `<span>✓</span> In My List`;
+        btn.classList.add("in-list");
+    } else {
+        btn.innerHTML = `<span>+</span> Add to My List`;
+        btn.classList.remove("in-list");
+    }
+}
+
+async function toggleWatchlist() {
+    if (!currentSelectedMovie) return;
+    const movieId = currentSelectedMovie._id || currentSelectedMovie.id;
+    const btn = document.getElementById("modalWatchlistBtn");
+    const isInList = btn.classList.contains("in-list");
+    
+    if (token) {
+        try {
+            const method = isInList ? "DELETE" : "POST";
+            const response = await fetch(`${API_URL}/api/auth/watchlist`, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ movieId })
+            });
+            
+            if (response.ok) {
+                console.log("Watchlist updated on backend");
+            } else {
+                toggleLocalWatchlist(movieId, isInList);
+            }
+        } catch (e) {
+            toggleLocalWatchlist(movieId, isInList);
+        }
+    } else {
+        alert("Please Sign In first to save your list permanently! Storing locally for now.");
+        toggleLocalWatchlist(movieId, isInList);
+    }
+    
+    updateWatchlistButtonState(movieId);
+    
+    // If we are currently viewing "My List" filter, reload it
+    const activeFilter = document.querySelector(".genre-btn.active");
+    if (activeFilter && activeFilter.innerText === "My List") {
+        loadWatchlist();
+    }
+}
+
+function toggleLocalWatchlist(movieId, isInList) {
+    if (isInList) {
+        localWatchlist = localWatchlist.filter(id => id !== movieId);
+    } else {
+        if (!localWatchlist.includes(movieId)) {
+            localWatchlist.push(movieId);
+        }
+    }
+    localStorage.setItem("localWatchlist", JSON.stringify(localWatchlist));
+}
+
+// Close modal when clicking outside
+window.addEventListener("click", (e) => {
+    const modal = document.getElementById("movieModal");
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+
+// Load movies on initialization
+window.addEventListener("DOMContentLoaded", loadMovies);
 </script>
 
 

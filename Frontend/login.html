@@ -1,80 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Sign In</title>
     <style>
-        body{
-            background-color: black;
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/img.png);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            height: 90px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            cursor: pointer;
+        }
+
+        .login-container {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial;
+            align-items: flex-start;
+            padding-top: 20px;
         }
-        .login-box{
-            background-color: rgba(0,0,0,0.8);
-            padding: 30px;
-            border-radius: 8px;
-            width: 300px;
-        }
-        input{
+
+        .login-box {
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 4px;
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            max-width: 450px;
+            min-height: 550px;
+            padding: 60px 68px 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        button{
+
+        @media (max-width: 740px) {
+            body {
+                background-color: black;
+                background-image: none;
+            }
+            .header {
+                padding: 0 20px;
+                height: 70px;
+            }
+            .logo img {
+                height: 35px;
+            }
+            .login-box {
+                padding: 20px 20px 40px;
+                min-height: auto;
+                background-color: black;
+            }
+        }
+
+        .login-box h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .input-group input {
             width: 100%;
-            padding: 10px;
+            background: #333;
+            border: none;
+            border-radius: 4px;
+            height: 50px;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            color: white;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .input-group input:focus {
+            background-color: #454545;
+            outline: none;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 16px;
             background-color: #e50914;
             color: white;
             border: none;
-            font-weight: bold;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
+            margin-top: 24px;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-box button:hover {
+            background-color: #c80610;
+        }
+
+        .login-box button:active {
+            transform: scale(0.98);
+        }
+
+        .box-help {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #b3b3b3;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .box-help label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .box-help a {
+            color: #b3b3b3;
+            text-decoration: none;
+        }
+
+        .box-help a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-now {
+            margin-top: 50px;
+            color: #737373;
+            font-size: 1rem;
+        }
+
+        .signup-now a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .signup-now a:hover {
+            text-decoration: underline;
+        }
+
+        .terms-text {
+            margin-top: 15px;
+            color: #8c8c8c;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .terms-text a {
+            color: #0071eb;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error/Info messages style */
+        .alert-message {
+            background-color: #e87c03;
+            color: white;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h2 style="color:white;">Sign In</h2>
+<div class="header">
+    <div class="logo" onclick="window.location.href='index.html'">
+        <img src="assets/logo3.png" alt="Netflix">
+    </div>
+</div>
 
-    <!-- <input type="email" placeholder="Email">
-    <input type="password" placeholder="Password"> -->
+<div class="login-container">
+    <div class="login-box">
+        <h1>Sign In</h1>
+        
+        <div id="alertBox" class="alert-message"></div>
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+        <div class="input-group">
+            <input type="email" id="email" placeholder="Email" required autocomplete="username">
+        </div>
 
-    <!-- <button>Sign In</button> -->
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+        </div>
 
-    <button onclick="loginUser()">Sign In</button>
+        <button onclick="loginUser()">Sign In</button>
 
+        <div class="box-help">
+            <label>
+                <input type="checkbox" checked> Remember me
+            </label>
+            <a href="#">Need help?</a>
+        </div>
+
+        <div class="signup-now">
+            New to Netflix? <a href="signup.html">Sign up now</a>.
+        </div>
+
+        <div class="terms-text">
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn more.</a>
+        </div>
+    </div>
 </div>
 
 <script>
-async function loginUser() {
+// Check if user is already logged in, redirect to index
+if (localStorage.getItem("token")) {
+    window.location.href = "index.html";
+}
 
-    const email = document.getElementById("email").value;
+async function loginUser() {
+    const alertBox = document.getElementById("alertBox");
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    const response = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    });
+    alertBox.style.display = "none";
 
-    const data = await response.json();
+    if (!email || !password) {
+        alertBox.innerText = "Please enter both email and password.";
+        alertBox.style.display = "block";
+        return;
+    }
 
-    if (data.token) {
-        localStorage.setItem("token", data.token);
-        alert("Login successful");
-        window.location.href = "index.html";
-    } else {
-        alert(data.message);
+    try {
+        const response = await fetch("http://localhost:4000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.token) {
+            localStorage.setItem("token", data.token);
+            window.location.href = "index.html";
+        } else {
+            alertBox.innerText = data.message || "Invalid credentials. Please try again.";
+            alertBox.style.display = "block";
+        }
+    } catch (error) {
+        console.error("Login request failed", error);
+        alertBox.innerText = "Connection to server failed. Please try again later.";
+        alertBox.style.display = "block";
     }
 }
 </script>

@@ -24,6 +24,7 @@ mongoose.connect(mongoURI)
   });
 
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/movies", require("./routes/movies"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

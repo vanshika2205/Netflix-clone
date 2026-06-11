@@ -114,4 +114,66 @@ router.post("/login", async (req, res) => {
 
 });
 
+// GET USER WATCHLIST
+router.get("/watchlist", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).populate("watchlist");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user.watchlist);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+// ADD TO WATCHLIST
+router.post("/watchlist", verifyToken, async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    if (!movieId) {
+      return res.status(400).json({ message: "movieId is required" });
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if already in watchlist
+    if (user.watchlist.includes(movieId)) {
+      return res.status(400).json({ message: "Movie already in watchlist" });
+    }
+
+    user.watchlist.push(movieId);
+    await user.save();
+
+    res.json({ message: "Movie added to watchlist successfully", watchlist: user.watchlist });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+// REMOVE FROM WATCHLIST
+router.delete("/watchlist", verifyToken, async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    if (!movieId) {
+      return res.status(400).json({ message: "movieId is required" });
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.watchlist = user.watchlist.filter(id => id.toString() !== movieId);
+    await user.save();
+
+    res.json({ message: "Movie removed from watchlist successfully", watchlist: user.watchlist });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
 module.exports = router;
