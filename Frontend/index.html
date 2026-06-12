@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Netflix Clone - Watch TV Shows & Movies Online</title>
+    <meta name="description" content="Discover popular movies, trending series, watch previews, and manage your watchlist on this custom Netflix Clone interface.">
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -43,12 +44,10 @@
         </div>
 
         <div id="page1">
-            <h1>Unlimited movies, TV</h1>
-            <h1> shows and more</h1>
+            <h1>Unlimited movies, TV shows and more</h1>
             <p>Starts at ₹149. Cancel at any time.</p>
             <br>
-            <p>Ready to watch? Enter your email to create or restart your</p>
-            <p> membership.</p>
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
 
             <div id="email-signup-container">
                 <div class="input-wrapper">
@@ -103,23 +102,19 @@
 
                 <div id="reason1">
                     <h2>Enjoy on your TV</h2>
-                    <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV,</p>
-                    <p>  Blu-ray players and more.</p>
+                    <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
                 </div>
                 <div id="reason2">
                     <h2>Download your shows to watch offline</h2>
-                    <p>Save your favourites easily and always have something to </p>
-                       <p> watch.</p>
+                    <p>Save your favourites easily and always have something to watch.</p>
                 </div>
                 <div id="reason3">
                     <h2>Watch everywhere</h2>
-                    <p>Stream unlimited movies and TV shows on your phone, tablet,</p>
-                    <p>laptop and TV.</p>
+                    <p>Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.</p>
                 </div>
                 <div id="reason4">
                     <h2>Create profiles for kids</h2>
-                    <p>Send kids on adventures with their favourite characters in a </p>
-                       <p>space made just for them — free with your membership.</p>
+                    <p>Send kids on adventures with their favourite characters in a space made just for them — free with your membership.</p>
                 </div>
 
             </div>
@@ -231,7 +226,7 @@ const getStartedBtn = document.getElementById("btn3");
 const usernameInput = document.getElementById("username");
 const inputDiv = usernameInput ? usernameInput.parentElement : null;
 const introSubText = document.querySelectorAll("#page1 p")[1];
-const introSubText2 = document.querySelectorAll("#page1 p")[2];
+const introSubText2 = null; // Merged into introSubText
 const myListFilterBtn = document.getElementById("myListFilterBtn");
 
 let allMovies = [];
